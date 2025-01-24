@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Reservation System</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">Bus Reservation System</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Buses</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="reservation-form">
+      <h1>Book Your Bus Tickets</h1>
+      <form>
+        <div class="form-group">
+          <label for="bus-route">Bus Route</label>
+          <select id="bus-route" name="bus-route">
+            <option value="sm-fairview-pitx">SM Fairview - PITX</option>
+            <option value="one-ayala-ayala-solenad">One Ayala - Ayala Solenad</option>
+            <option value="pitx-bgc">PITX - BGC</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="departure-date">Departure Date</label>
+          <input type="date" id="departure-date" name="departure-date">
+        </div>
+        <div class="form-group">
+          <label for="passengers">Passengers</label>
+          <input type="number" id="passengers" name="passengers" min="1" max="5">
+        </div>
+        <button type="button" class="btn-book" onclick="bookTickets()">Book Now</button>
+      </form>
+    </section>
+
+    <section class="available-seats">
+      <h2>Available Seats</h2>
+      <div class="seat-grid" id="seat-grid">
+        <!-- Seat grid will be dynamically generated here -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Bus Reservation System. All rights reserved.</p>
+  </footer>
+
+  <script src="./assets/js/script.js"></script>
+</body>
+</html>
