@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Create hamburger menu element
   const header = document.querySelector('header');
-  const navBar = document.querySelector('.nav-bar');
-  const navList = navBar.querySelector('ul');
+  const navList = document.querySelector('.nav-bar ul');
 
   const hamburgerMenu = document.createElement('div');
   hamburgerMenu.classList.add('hamburger-menu');
@@ -108,43 +107,6 @@ function loadBusRouteData() {
   updateAvailableSeats();
 }
 
-// Modify saveReservation to correctly track available seats
-function saveReservation() {
-  const { route, date, selectedSeats, passengersToReserve } = bookingState;
-
-  if (!route || !date || selectedSeats.length === 0) {
-    alert("Please select seats before saving the reservation.");
-    return;
-  }
-
-  // Check if the number of selected seats matches the number of passengers
-  if (selectedSeats.length !== passengersToReserve) {
-    alert(`Please select exactly ${passengersToReserve} seat(s) for your reservation.`);
-    return;
-  }
-
-  const routeData = busRoutes[route];
-  const reservedSeats = routeData.reservedSeatsByDate[date] || [];
-
-  selectedSeats.forEach(seat => {
-    if (!reservedSeats.includes(seat)) {
-      reservedSeats.push(seat);
-    }
-  });
-
-  // Update reserved seats for the specific date
-  routeData.reservedSeatsByDate[date] = reservedSeats;
-
-  // Correctly calculate and set available seats
-  routeData.availableSeatsByDate[date] = routeData.totalSeats - reservedSeats.length;
-
-  bookingState.reset();
-
-  saveBusRouteData();
-  updateAvailableSeats();
-  alert("Reservation saved successfully!");
-}
-
 // Save bus route data to localStorage
 function saveBusRouteData() {
   localStorage.setItem("busRoutes", JSON.stringify(busRoutes));
@@ -203,10 +165,6 @@ function toggleSeatSelection(event) {
   const formattedDate = selectedDate.toISOString().slice(0, 10);
   const routeData = busRoutes[selectedRoute];
   const reservedSeats = routeData.reservedSeatsByDate[formattedDate];
-  const availableSeats = routeData.availableSeatsByDate[formattedDate];
-
-  // Calculate remaining available seats
-  const remainingAvailableSeats = availableSeats - reservedSeats.length;
 
   if (bookingState.selectedSeats.includes(seatNumber)) {
     // Deselect seat
@@ -215,13 +173,12 @@ function toggleSeatSelection(event) {
     selectedSeat.classList.add("available");
   } else {
     // Check if we can select more seats
-    if (bookingState.selectedSeats.length < bookingState.passengersToReserve &&
-        bookingState.selectedSeats.length < remainingAvailableSeats) {
+    if (bookingState.selectedSeats.length < bookingState.passengersToReserve) {
       bookingState.selectedSeats.push(seatNumber);
       selectedSeat.classList.remove("available");
       selectedSeat.classList.add("selected");
     } else {
-      alert(`You can only select ${Math.min(bookingState.passengersToReserve, remainingAvailableSeats)} seats.`);
+      alert(`You can only select ${bookingState.passengersToReserve} seats.`);
     }
   }
 }
