@@ -5,32 +5,25 @@
 <br />
 <div align="center">
   <a href="https://github.com/zyx-0314/">
-  <!-- TODO: If you want to add logo or banner you can add it here -->
     <img src="./assets/img/nyebe_white.png" alt="Nyebe" width="130" height="100">
   </a>
-<!-- TODO: Change Title to the name of the title of your Project -->
-  <h3 align="center">Bus Reservation System</h3>
+  <h3 align="center">Apollo Transport Hub</h3>
 </div>
-<!-- TODO: Make a short description -->
 <div align="center">
  A website that manages seating reservations of 3 buses with 5 seats each.
 </div>
 
 <br />
-
-<!-- TODO: Change the zyx-0314 into your github username  -->
-<!-- TODO: Change the WD-Template-Project into the same name of your folder -->
 ![](https://visit-counter.vercel.app/counter.png?page=rmill24/AWD-Seatwork-1-5-MR-25
 )
 
-[![wakatime](https://wakatime.com/badge/user/018dd99a-4985-4f98-8216-6ca6fe2ce0f8/project/63501637-9a31-42f0-960d-4d0ab47977f8.svg)](https://wakatime.com/badge/user/018dd99a-4985-4f98-8216-6ca6fe2ce0f8/project/63501637-9a31-42f0-960d-4d0ab47977f8)
+[![wakatime](https://wakatime.com/badge/user/6c80cdc4-dec4-4068-bf60-95dc0fb14311.svg)](https://wakatime.com/@6c80cdc4-dec4-4068-bf60-95dc0fb14311)
 
 ---
 
 <br />
 <br />
 
-<!-- TODO: If you want to add more layers for your readme -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -57,26 +50,26 @@
 ---
 
 ## Overview
+This project is a single page website consisting of a landing page and a form that allows a client to book a seat for 3 different bus routes.
 
-<!-- TODO: To be changed -->
-<!-- The following are just sample -->
-Description of the project in details.
+Usage:
+To use the booking system, simply select a bus route and departure date from the form to show available seats. To book seats, input the number of passengers you will be booking for and click on the "Book Now" button. Afterwards, you will be able to select available seats based on the number of passengers you are booking for. After selecting your seats, you may now save your reservation.
 
-Guiding Question:
-- What is the project
-- Whats the purpose
-- What are key components
-- What technology used and how it is used
+The form will alert for things such as:
+- Incomplete fields
+- Trying to book for more than the available seats
+- Saving reservation when:
+  a. You have not matched the number of seats selected to the number of passengers you booked for
+  b. You have not selected any seat/s
+- Booking for a past date
+- There are no seats left for the chosen route and date
 
 ### Key Components
-<!-- TODO: List of Key Components -->
-<!-- The following are just sample -->
-- MultiPage Website/Single Page Website
+- Single Page Website
 - Parallax transition
 - Transactional
 
 ### Technology
-<!-- TODO: List of Technology Used -->
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
@@ -116,8 +109,6 @@ WD-ProjectName
 ```
 
 ## Resources
-
-<!-- TODO: Add References -->
 | Title | Purpose | Link |
 |-|-|-|
-| Sample Title | Sample purpose would be here like this and this is the example of what it is. | trykolang.com |
+| Parallax Scrolling | Tutorial on how to add parallax animation using HTML, CSS, and JavaScript | https://www.youtube.com/watch?v=kmM6mqvnxcs&t=622s |
