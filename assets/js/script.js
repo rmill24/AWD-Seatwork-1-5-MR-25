@@ -41,9 +41,53 @@ function loadBusRouteData() {
     Object.keys(busRoutes).forEach(route => {
       busRoutes[route].availableSeatsByDate = { ...parsedData[route]?.availableSeatsByDate };
       busRoutes[route].reservedSeatsByDate = { ...parsedData[route]?.reservedSeatsByDate };
+
+      // Ensure each date has the correct number of available seats
+      Object.keys(busRoutes[route].reservedSeatsByDate).forEach(date => {
+        const reservedSeats = busRoutes[route].reservedSeatsByDate[date];
+        busRoutes[route].availableSeatsByDate[date] = 
+          busRoutes[route].totalSeats - (reservedSeats || []).length;
+      });
     });
   }
   updateAvailableSeats();
+}
+
+// Modify saveReservation to correctly track available seats
+function saveReservation() {
+  const { route, date, selectedSeats, passengersToReserve } = bookingState;
+
+  if (!route || !date || selectedSeats.length === 0) {
+    alert("Please select seats before saving the reservation.");
+    return;
+  }
+
+  // Check if the number of selected seats matches the number of passengers
+  if (selectedSeats.length !== passengersToReserve) {
+    alert(`Please select exactly ${passengersToReserve} seat(s) for your reservation.`);
+    return;
+  }
+
+  const routeData = busRoutes[route];
+  const reservedSeats = routeData.reservedSeatsByDate[date] || [];
+
+  selectedSeats.forEach(seat => {
+    if (!reservedSeats.includes(seat)) {
+      reservedSeats.push(seat);
+    }
+  });
+
+  // Update reserved seats for the specific date
+  routeData.reservedSeatsByDate[date] = reservedSeats;
+
+  // Correctly calculate and set available seats
+  routeData.availableSeatsByDate[date] = routeData.totalSeats - reservedSeats.length;
+
+  bookingState.reset();
+
+  saveBusRouteData();
+  updateAvailableSeats();
+  alert("Reservation saved successfully!");
 }
 
 // Save bus route data to localStorage
@@ -62,11 +106,15 @@ function updateAvailableSeats() {
   const routeData = busRoutes[selectedRoute];
   const totalSeats = routeData.totalSeats;
 
-  routeData.availableSeatsByDate[formattedDate] = routeData.availableSeatsByDate[formattedDate] || totalSeats;
-  routeData.reservedSeatsByDate[formattedDate] = routeData.reservedSeatsByDate[formattedDate] || [];
+  // Ensure date-specific data exists with correct initial values
+  routeData.availableSeatsByDate[formattedDate] = 
+    routeData.availableSeatsByDate[formattedDate] || totalSeats;
+  routeData.reservedSeatsByDate[formattedDate] = 
+    routeData.reservedSeatsByDate[formattedDate] || [];
 
   const reservedSeats = routeData.reservedSeatsByDate[formattedDate];
-  let seatsVisible = false; // Flag to track if seats are shown
+  const availableSeats = routeData.totalSeats - reservedSeats.length;
+  let seatsVisible = false;
 
   for (let i = 1; i <= totalSeats; i++) {
     const seatElement = document.createElement("div");
@@ -77,10 +125,10 @@ function updateAvailableSeats() {
       seatElement.classList.add("reserved");
     } else if (bookingState.selectedSeats.includes(i)) {
       seatElement.classList.add("selected");
-    } else {
+    } else if (availableSeats > 0) {
       seatElement.classList.add("available");
       seatElement.addEventListener("click", toggleSeatSelection);
-      seatsVisible = true; // Seats are available, set flag to true
+      seatsVisible = true;
     }
 
     seatGrid.appendChild(seatElement);
@@ -88,6 +136,39 @@ function updateAvailableSeats() {
 
   // Show "Save Reservation" button only if seats are available
   document.getElementById("save-reservation").style.display = seatsVisible ? "block" : "none";
+}
+
+// Modify toggleSeatSelection to prevent selecting more seats than available
+function toggleSeatSelection(event) {
+  const selectedSeat = event.target;
+  const seatNumber = parseInt(selectedSeat.textContent);
+
+  const selectedRoute = document.getElementById("bus-route").value;
+  const selectedDate = new Date(document.getElementById("departure-date").value);
+  const formattedDate = selectedDate.toISOString().slice(0, 10);
+  const routeData = busRoutes[selectedRoute];
+  const reservedSeats = routeData.reservedSeatsByDate[formattedDate];
+  const availableSeats = routeData.availableSeatsByDate[formattedDate];
+
+  // Calculate remaining available seats
+  const remainingAvailableSeats = availableSeats - reservedSeats.length;
+
+  if (bookingState.selectedSeats.includes(seatNumber)) {
+    // Deselect seat
+    bookingState.selectedSeats = bookingState.selectedSeats.filter(seat => seat !== seatNumber);
+    selectedSeat.classList.remove("selected");
+    selectedSeat.classList.add("available");
+  } else {
+    // Check if we can select more seats
+    if (bookingState.selectedSeats.length < bookingState.passengersToReserve &&
+        bookingState.selectedSeats.length < remainingAvailableSeats) {
+      bookingState.selectedSeats.push(seatNumber);
+      selectedSeat.classList.remove("available");
+      selectedSeat.classList.add("selected");
+    } else {
+      alert(`You can only select ${Math.min(bookingState.passengersToReserve, remainingAvailableSeats)} seats.`);
+    }
+  }
 }
 
 // Toggle seat selection
@@ -112,15 +193,21 @@ function toggleSeatSelection(event) {
 
 // Save reserved seats
 function saveReservation() {
-  const { route, date, selectedSeats } = bookingState;
+  const { route, date, selectedSeats, passengersToReserve } = bookingState;
 
   if (!route || !date || selectedSeats.length === 0) {
     alert("Please select seats before saving the reservation.");
     return;
   }
 
+  // Check if the number of selected seats matches the number of passengers
+  if (selectedSeats.length !== passengersToReserve) {
+    alert(`Please select exactly ${passengersToReserve} seat(s) for your reservation.`);
+    return;
+  }
+
   const routeData = busRoutes[route];
-  const reservedSeats = routeData.reservedSeatsByDate[date];
+  const reservedSeats = routeData.reservedSeatsByDate[date] || [];
 
   selectedSeats.forEach(seat => {
     if (!reservedSeats.includes(seat)) {
@@ -128,7 +215,8 @@ function saveReservation() {
     }
   });
 
-  // Ensure only the reserved seats reduce the availability
+  // Recalculate available seats based on total seats and reserved seats
+  routeData.reservedSeatsByDate[date] = reservedSeats;
   routeData.availableSeatsByDate[date] = routeData.totalSeats - reservedSeats.length;
 
   bookingState.reset();
@@ -145,6 +233,7 @@ function bookTickets() {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
+  // Check if the selected departure date is in the present or future
   if (departureDate >= currentDate) {
     const passengers = parseInt(document.getElementById("passengers").value);
 
@@ -152,21 +241,39 @@ function bookTickets() {
       const routeData = busRoutes[busRoute];
       const formattedDate = departureDate.toISOString().slice(0, 10);
 
-      routeData.availableSeatsByDate[formattedDate] =
+      // Ensure date-specific data exists with correct initial values
+      routeData.availableSeatsByDate[formattedDate] = 
         routeData.availableSeatsByDate[formattedDate] || routeData.totalSeats;
-      routeData.reservedSeatsByDate[formattedDate] =
+      routeData.reservedSeatsByDate[formattedDate] = 
         routeData.reservedSeatsByDate[formattedDate] || [];
 
-      const availableSeats = routeData.availableSeatsByDate[formattedDate];
+      // Dynamically calculate available seats
+      const totalReservedSeats = routeData.reservedSeatsByDate[formattedDate].length;
+      const currentAvailableSeats = routeData.totalSeats - totalReservedSeats;
 
-      if (passengers <= availableSeats) {
+      // New validation: Check if requested passengers exceed available seats
+      if (passengers > currentAvailableSeats) {
+        alert(`Sorry, you requested ${passengers} passengers, but only ${currentAvailableSeats} seat(s) are available for this route and date.`);
+        return;
+      }
+
+      // Check if there are any seats available
+      if (currentAvailableSeats <= 0) {
+        alert("Sorry, there are no available seats for this route and date.");
+        return;
+      }
+
+      // Ensure passengers doesn't exceed available seats
+      const seatsToBook = Math.min(passengers, currentAvailableSeats);
+
+      if (seatsToBook > 0) {
         bookingState.route = busRoute;
         bookingState.date = formattedDate;
-        bookingState.passengersToReserve = passengers;
+        bookingState.passengersToReserve = seatsToBook;
         bookingState.selectedSeats = [];
 
         updateAvailableSeats();
-        alert(`Please select ${passengers} seats to reserve.`);
+        alert(`Please select ${seatsToBook} seats to reserve.`);
       } else {
         alert("Sorry, there are not enough available seats for your request.");
       }
