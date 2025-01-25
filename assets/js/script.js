@@ -1,4 +1,59 @@
-// script.js
+document.addEventListener('DOMContentLoaded', () => {
+  // Create hamburger menu element
+  const header = document.querySelector('header');
+  const navBar = document.querySelector('.nav-bar');
+  const navList = navBar.querySelector('ul');
+
+  const hamburgerMenu = document.createElement('div');
+  hamburgerMenu.classList.add('hamburger-menu');
+  hamburgerMenu.innerHTML = `
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+  `;
+
+  // Insert hamburger menu into header
+  header.appendChild(hamburgerMenu);
+
+  // Toggle menu function
+  hamburgerMenu.addEventListener('click', () => {
+      hamburgerMenu.classList.toggle('active');
+      navList.classList.toggle('active');
+
+      // Prevent scrolling when menu is open
+      document.body.style.overflow = navList.classList.contains('active') 
+          ? 'hidden' 
+          : 'auto';
+  });
+
+  // Close menu when a nav link is clicked
+  navList.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+          hamburgerMenu.classList.remove('active');
+          navList.classList.remove('active');
+          document.body.style.overflow = 'auto';
+      });
+  });
+
+  // Close menu if clicked outside
+  document.addEventListener('click', (event) => {
+      if (!header.contains(event.target) && 
+          navList.classList.contains('active')) {
+          hamburgerMenu.classList.remove('active');
+          navList.classList.remove('active');
+          document.body.style.overflow = 'auto';
+      }
+  });
+});
+
+// parallax
+let text = document.getElementById('parallax-text-container');
+
+window.addEventListener('scroll', ()  => {
+  let value = window.scrollY;
+
+  text.style.marginTop = value * 2 + 'px';
+});
 
 // Bus route details with available seats
 const busRoutes = {
@@ -167,26 +222,6 @@ function toggleSeatSelection(event) {
       selectedSeat.classList.add("selected");
     } else {
       alert(`You can only select ${Math.min(bookingState.passengersToReserve, remainingAvailableSeats)} seats.`);
-    }
-  }
-}
-
-// Toggle seat selection
-function toggleSeatSelection(event) {
-  const selectedSeat = event.target;
-  const seatNumber = parseInt(selectedSeat.textContent);
-
-  if (bookingState.selectedSeats.includes(seatNumber)) {
-    bookingState.selectedSeats = bookingState.selectedSeats.filter(seat => seat !== seatNumber);
-    selectedSeat.classList.remove("selected");
-    selectedSeat.classList.add("available");
-  } else {
-    if (bookingState.selectedSeats.length < bookingState.passengersToReserve) {
-      bookingState.selectedSeats.push(seatNumber);
-      selectedSeat.classList.remove("available");
-      selectedSeat.classList.add("selected");
-    } else {
-      alert(`You can only select ${bookingState.passengersToReserve} seats.`);
     }
   }
 }

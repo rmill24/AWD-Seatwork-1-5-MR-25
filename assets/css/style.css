@@ -1,81 +1,219 @@
-/* Reset some default styles */
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+NO:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  /* Global styles */
-  body {
-    font-family: Arial, sans-serif;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
     background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-  }
-  
-  /* Header styles */
-  header {
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+header {
     background-color: black;
     color: #fff;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.hamburger-menu .bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+/* Hamburger Menu Transformations */
+.hamburger-menu.active .bar:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger-menu.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .bar:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+@media screen and (max-width: 768px) {
+  .nav-bar ul {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      flex-direction: column;
+      background-color: black;
+      width: 100%;
+      text-align: center;
+      transition: 0.3s;
+      padding: 2rem 0;
+      height: 100vh;
+      z-index: 100;
+      justify-content: center;
   }
-  
-  .logo {
-    font-size: 1.5rem;
+
+  .nav-bar ul.active {
+      left: 0;
+  }
+
+  .nav-bar li {
+      margin: 1rem 0;
+  }
+
+  .nav-bar a {
+      font-size: 1.5rem;
+  }
+
+  .hamburger-menu {
+      display: flex;
+      position: absolute;
+      right: 1rem;
+  }
+}
+
+.logo {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
     font-weight: bold;
-  }
-  
-  nav ul {
+    flex-grow: 1;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar ul {
     list-style-type: none;
     display: flex;
-  }
-  
-  nav li {
-    margin-left: 1rem;
-  }
-  
-  nav a {
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nav-bar li {
+    margin: 0;
+}
+
+.nav-bar a {
     color: #fff;
     text-decoration: none;
-  }
-  
-  /* Main content styles */
-  main {
-    flex-grow: 1;
-    padding: 2rem;
-  }
-  
-  .reservation-form {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-bar a:hover, .nav-bar a.active {
+    background-color: white;
+    color: black;
+}
+
+/* Responsive Parallax Section */
+.parallax {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#parallax-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+  padding: 0 1rem;
+}
+
+#parallax-text {
+    position: absolute;
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 0 1rem;
+    margin-bottom: 0.5rem;
+}
+
+#parallax-subtext {
+  font-size: clamp(0.9rem, 3vw, 1.5rem);
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 5rem;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-style: italic;
+}
+
+.parallax img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(40%);
+}
+
+/* Responsive Container and Forms */
+.container {
+    position: relative;
+    background: black;
+    padding: clamp(2rem, 5vw, 6rem);
+    width: 100%;
+}
+
+.reservation-form {
     max-width: 600px;
+    width: 90%;
     margin: 0 auto;
     background-color: #fff;
-    padding: 2rem;
+    padding: clamp(1rem, 4vw, 2rem);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group {
+}
+
+.form-group {
     margin-bottom: 1rem;
-  }
-  
-  label {
+}
+
+label {
     display: block;
     font-weight: bold;
     margin-bottom: 0.5rem;
-  }
-  
-  input, select {
+}
+
+input, select {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  
-  .btn-book {
+    font-size: 1rem;
+}
+
+.btn-book {
     background-color: black;
     color: #fff;
     border: none;
@@ -83,60 +221,114 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-  }
-  
-  .available-seats {
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.btn-book:hover {
+    background-color: #333;
+}
+
+/* Responsive Seat Grid */
+.available-seats {
     margin-top: 2rem;
-  }
-  
-  .seat-grid {
+    padding: clamp(1rem, 4vw, 2rem);
+    color: white;
+}
+
+.seat-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     grid-gap: 1rem;
-  }
-  
-  .seat {
+}
+
+.seat {
     background-color: #ccc;
     padding: 1rem;
     text-align: center;
     cursor: pointer;
-  }
-  
-  .seat.available {
-    background-color: black;
-    color: #fff;
-  }
-  
-  /* Footer styles */
-  footer {
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.seat.available {
+    background-color: white;
+    color: black;
+}
+
+.seat.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#save-reservation {
+    display: none;
+    margin-top: 1rem;
+    background-color: white;
+    color: black;
+}
+
+/* Footer */
+footer {
     background-color: black;
     color: #fff;
     padding: 1rem;
     text-align: center;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    nav ul {
-      flex-direction: column;
-      margin-top: 1rem;
-    }
-  
-    nav li {
-      margin-left: 0;
-      margin-bottom: 0.5rem;
-    }
-  
-    .seat-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+    width: 100%;
+}
 
-  #save-reservation{
-    display: none;
-  }
+/* Tablet and Mobile Specific Adjustments */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-bar ul {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .parallax {
+        height: 60vh;
+    }
+
+    .container {
+        padding: 2rem 1rem;
+    }
+
+    #parallax-subtext {
+        margin-top: 2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .seat-grid {
+        grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+        grid-gap: 0.5rem;
+    }
+
+    .seat {
+        padding: 0.5rem;
+    }
+
+    #parallax-text {
+        font-size: clamp(1rem, 5vw, 2rem);
+    }
+    
+}
+
+/* Accessibility and Performance Enhancements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
+
+/* Ensure touch targets are large enough on mobile */
+@media (pointer: coarse) {
+    .btn-book, .seat, .nav-bar a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
