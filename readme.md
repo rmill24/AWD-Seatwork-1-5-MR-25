@@ -14,8 +14,7 @@
 </div>
 
 <br />
-![](https://visit-counter.vercel.app/counter.png?page=rmill24/AWD-Seatwork-1-5-MR-25
-)
+![](https://visit-counter.vercel.app/counter.png?page=rmill24/AWD-Seatwork-1-5-MR-25)
 
 [![wakatime](https://wakatime.com/badge/user/6c80cdc4-dec4-4068-bf60-95dc0fb14311.svg)](https://wakatime.com/@6c80cdc4-dec4-4068-bf60-95dc0fb14311)
 
