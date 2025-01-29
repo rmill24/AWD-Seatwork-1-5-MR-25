@@ -14,7 +14,8 @@
 </div>
 
 <br />
-![visits](https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Fgithub.com%2Frmill24%2FAWD-Seatwork-1-5-MR-25&s=40&c=7322c3&bg=00000000&no=2&ff=alien&tb=&ta=)
+
+![visits](https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Fgithub.com%2Frmill24%2FAWD-Seatwork-1-5-MR-25&s=40&c=6325d4&bg=00000000&no=2&ff=linebeam&tb=&ta=)
 
 [![wakatime](https://wakatime.com/badge/user/6c80cdc4-dec4-4068-bf60-95dc0fb14311.svg)](https://wakatime.com/@6c80cdc4-dec4-4068-bf60-95dc0fb14311)
 
