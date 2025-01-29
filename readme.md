@@ -14,7 +14,7 @@
 </div>
 
 <br />
-![](https://visit-counter.vercel.app/counter.png?page=rmill24/AWD-Seatwork-1-5-MR-25)
+![visits](https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Fgithub.com%2Frmill24%2FAWD-Seatwork-1-5-MR-25&s=40&c=7322c3&bg=00000000&no=2&ff=alien&tb=&ta=)
 
 [![wakatime](https://wakatime.com/badge/user/6c80cdc4-dec4-4068-bf60-95dc0fb14311.svg)](https://wakatime.com/@6c80cdc4-dec4-4068-bf60-95dc0fb14311)
 
@@ -34,6 +34,9 @@
         </li>
         <li>
           <a href="#technology">Technology</a>
+        </li>
+        <li>
+          <a href="#project-structure">Project Structure</a>
         </li>
       </ol>
     </li>
@@ -55,8 +58,8 @@ The form will alert for things such as:
 - Incomplete fields
 - Trying to book for more than the available seats
 - Saving reservation when:
-  a. You have not matched the number of seats selected to the number of passengers you booked for
-  b. You have not selected any seat/s
+  1. You have not matched the number of seats selected to the number of passengers you booked for
+  2. You have not selected any seat/s
 - Booking for a past date
 - There are no seats left for the chosen route and date
 
@@ -69,9 +72,27 @@ The form will alert for things such as:
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
+
+### Project Structure
+
+```
+AWD-SEATWORK-1-5-MR-25
+└─ assets
+│   └─ css
+│   │   └─ style.css
+│   └─ img
+│   │   └─ background1.png
+|   |   └─ nyebe_white.png
+│   └─ js
+│       └─ script.js
+└─ index.html
+└─ LICENSE
+└─ readme.md
 ```
 
 ## Resources
 | Title | Purpose | Link |
 |-|-|-|
 | Parallax Scrolling | Tutorial on how to add parallax animation using HTML, CSS, and JavaScript | https://www.youtube.com/watch?v=kmM6mqvnxcs&t=622s |
+| Poppins Font | Font used in the website | https://fonts.google.com/specimen/Poppins |
+| Bus Image | Background image used in landing | https://unsplash.com/photos/gray-and-black-bus-parked-during-daytime-LR5O79shvro |
