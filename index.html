@@ -46,6 +46,9 @@
           <div class="form-group">
             <label for="passengers">Passengers</label>
             <input type="number" id="passengers" name="passengers" min="1" max="5">
+            <div class="form-group">
+              <div id="total-price" class="price-display">Total Price: ₱0.00</div>
+            </div>
           </div>
           <button type="button" class="btn-book" onclick="bookTickets()">Book Now</button>
         </form>
@@ -62,6 +65,27 @@
         <button id="save-reservation" class="btn-book">Save Reservation</button>
   
       </section>
+      <div id="payment-modal" class="modal">
+        <div class="modal-content">
+          <h2>Payment Details</h2>
+          <p>Total Amount: <span id="modal-total-price">₱0.00</span></p>
+          <form id="payment-form">
+            <div class="form-group">
+              <label for="card-number">Card Number</label>
+              <input type="text" id="card-number" maxlength="16" placeholder="1234 5678 9012 3456" required>
+            </div>
+            <div class="form-group">
+              <label for="card-expiry">Expiry Date</label>
+              <input type="date" id="card-expiry" required>
+            </div>
+            <div class="form-group">
+              <label for="card-cvv">CVV</label>
+              <input type="text" id="card-cvv" maxlength="3" placeholder="123" required>
+            </div>
+            <button type="submit" class="btn-book">Pay Now</button>
+          </form>
+        </div>
+      </div>
     </div>
   </main>
 
