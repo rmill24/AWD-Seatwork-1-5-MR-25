@@ -68,6 +68,7 @@ The form will alert for things such as:
 - Single Page Website
 - Parallax transition
 - Transactional
+- Responsive Web Design
 
 ### Technology
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
