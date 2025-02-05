@@ -1,98 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bus Reservation System</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-<body>
-  <header>
-    <div class="logo">Apollo Transport Hub</div>
-    <nav class="nav-bar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">Routes</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bus Reservation System</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">Apollo Transport Hub</div>
+      <nav class="nav-bar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">Routes</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <main>
-    <section class="parallax">
-      <img src="./assets/img/background1.jpg" alt="Background Image">
-      <div id="parallax-text-container">
-        <h2 id="parallax-text">Experience the extraordinary</h2>
-        <p id="parallax-subtext">Travel with Apollo</p>
-      </div>
-    </section>
-    <div class="container">
-      <section class="reservation-form">
-        <h1>Book Your Bus Tickets</h1>
-        <form>
-          <div class="form-group">
-            <label for="bus-route">Bus Route</label>
-            <select id="bus-route" name="bus-route">
-              <option value="sm-fairview-pitx">SM Fairview - PITX</option>
-              <option value="one-ayala-ayala-solenad">One Ayala - Ayala Solenad</option>
-              <option value="pitx-bgc">PITX - BGC</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="departure-date">Departure Date</label>
-            <input type="date" id="departure-date" name="departure-date">
-          </div>
-          <div class="form-group">
-            <label for="passengers">Passengers</label>
-            <input type="number" id="passengers" name="passengers" min="1" max="5">
-            <div class="form-group">
-              <div id="total-price" class="price-display">Total Price: ₱0.00</div>
-            </div>
-          </div>
-          <button type="button" class="btn-book" onclick="bookTickets()">Book Now</button>
-        </form>
-      </section>
-  
-      <section class="available-seats">
-        <h2>Available Seats</h2>
-        <p>Select bus route and date to show available seats.</p>
-        <br>
-        <div class="seat-grid" id="seat-grid">
-          <!-- Seat grid will be dynamically generated here -->
+    <main>
+      <section class="parallax">
+        <img src="./assets/img/background1.jpg" alt="Background Image" />
+        <div id="parallax-text-container">
+          <h2 id="parallax-text">Experience the extraordinary</h2>
+          <p id="parallax-subtext">Travel with Apollo</p>
         </div>
-        <br>
-        <button id="save-reservation" class="btn-book">Save Reservation</button>
-  
       </section>
-      <div id="payment-modal" class="modal">
-        <div class="modal-content">
-          <h2>Payment Details</h2>
-          <p>Total Amount: <span id="modal-total-price">₱0.00</span></p>
-          <form id="payment-form">
+      <div class="container">
+        <section class="reservation-form">
+          <h1>Book Your Bus Tickets</h1>
+          <form>
             <div class="form-group">
-              <label for="card-number">Card Number</label>
-              <input type="text" id="card-number" maxlength="16" placeholder="1234 5678 9012 3456" required>
+              <label for="bus-route">Bus Route</label>
+              <select id="bus-route" name="bus-route">
+                <option value="sm-fairview-pitx">SM Fairview - PITX</option>
+                <option value="one-ayala-ayala-solenad">
+                  One Ayala - Ayala Solenad
+                </option>
+                <option value="pitx-bgc">PITX - BGC</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="card-expiry">Expiry Date</label>
-              <input type="date" id="card-expiry" required>
+              <label for="departure-date">Departure Date</label>
+              <input type="date" id="departure-date" name="departure-date" />
             </div>
             <div class="form-group">
-              <label for="card-cvv">CVV</label>
-              <input type="text" id="card-cvv" maxlength="3" placeholder="123" required>
+              <label for="passengers">Passengers</label>
+              <input
+                type="number"
+                id="passengers"
+                name="passengers"
+                min="1"
+                max="5"
+              />
+              <div class="form-group">
+                <div id="total-price" class="price-display">
+                  Total Price: ₱0.00
+                </div>
+              </div>
             </div>
-            <button type="submit" class="btn-book">Pay Now</button>
+            <button type="button" class="btn-book" onclick="bookTickets()">
+              Book Now
+            </button>
           </form>
+        </section>
+
+        <section class="available-seats">
+          <h2>Available Seats</h2>
+          <p>Select bus route and date to show available seats.</p>
+          <br />
+          <div class="seat-grid" id="seat-grid">
+            <!-- Seat grid will be dynamically generated here -->
+          </div>
+          <br />
+          <button id="save-reservation" class="btn-book">
+            Save Reservation
+          </button>
+        </section>
+        <div id="payment-modal" class="modal">
+          <div class="modal-content">
+            <h2>Payment Details</h2>
+            <p>Total Amount: <span id="modal-total-price">₱0.00</span></p>
+            <form id="payment-form">
+              <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input
+                  type="text"
+                  id="card-number"
+                  maxlength="16"
+                  placeholder="1234 5678 9012 3456"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="card-expiry">Expiry Date</label>
+                <input type="date" id="card-expiry" required />
+              </div>
+              <div class="form-group">
+                <label for="card-cvv">CVV</label>
+                <input
+                  type="text"
+                  id="card-cvv"
+                  maxlength="3"
+                  placeholder="123"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-book">Pay Now</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <footer>
-    <p>&copy; 2025 Apollo Transport Hub. All rights reserved.</p>
-  </footer>
+    <footer>
+      <p>&copy; 2025 Apollo Transport Hub. All rights reserved.</p>
+    </footer>
 
-  <script src="./assets/js/script.js"></script>
-</body>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
